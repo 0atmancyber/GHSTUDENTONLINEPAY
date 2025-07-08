@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #004080;
+    padding: 10px 20px;
+    color: white;
+    flex-wrap: wrap;
+  }
+  .logo img {
+    height: 40px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+  }
+  #menu-toggle {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+      display: none;
+      background: #004080;
+    }
+    .nav-links li {
+      text-align: center;
+      padding: 10px 0;
+    }
+    #menu-toggle:checked + .hamburger + .nav-links {
+      display: flex;
+    }
+    .hamburger {
+      display: block;
+    }
+  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    nav {
+      background-color: #007bff;
+      padding: 15px;
+      position: relative;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      color: white;
+      cursor: pointer;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #007bff;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+      }
+
+      .nav-links a {
+        padding: 10px 0;
+        border-top: 1px solid #fff;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    h2 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 90%;
+      max-width: 500px;
+      padding: 10px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      word-wrap: break-word;
+      table-layout: auto;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    /* Prevent horizontal scroll on mobile */
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 13px;
+        padding: 6px;
+      }
+    }
+
+    .image-container {
+  display: flex;
+  justify-content: center; /* Center images horizontally */
+  align-items: center;     /* Center images vertically (optional) */
+  gap: 20px;               /* Space between images */
+  padding: 20px;
+  flex-wrap: wrap;         /* Optional: wrap on small screens */
+}
+
+.image-container img {
+  width: 100px;            /* Adjust size as needed */
+  height: auto;
+}
+
+  </style>
+
+  <script>
+    function toggleMenu() {
+      const navLinks = document.getElementById("navLinks");
+      navLinks.classList.toggle("show");
+    }
+
+    function searchTable() {
+      let input = document.getElementById("searchInput").value.toLowerCase();
+      let rows = document.getElementById("paymentTable").rows;
+      for (let i = 1; i < rows.length; i++) {
+        let rowText = rows[i].innerText.toLowerCase();
+        rows[i].style.display = rowText.includes(input) ? "" : "none";
+      }
+    }
+  </script>
+</head>
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="/static/logo.png" alt="GH Schools" />
+    </div>
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="hamburger">&#9776;</label>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/payment">Payment</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+<div class="image-container">
+  <img src="images/GH%20Schools.png" alt="Image 1">
+   <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+</div>
+
+  <h2>Payment Dashboard</h2>
+  <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search by Name, ID, Email or Ref">
+
+  <table id="paymentTable">
+    <tr>
+      <th>Student ID</th><th>Name</th><th>Email</th><th>Amount</th><th>Status</th><th>Reference</th><th>Timestamp</th>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>GHS </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+
+  </table>
+
+</body>
+</html>
+

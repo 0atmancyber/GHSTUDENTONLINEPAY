@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Make Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <style>
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #004080;
+    padding: 10px 20px;
+    color: white;
+    flex-wrap: wrap;
+  }
+  .logo img {
+    height: 40px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+  }
+  #menu-toggle {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+      display: none;
+      background: #004080;
+    }
+    .nav-links li {
+      text-align: center;
+      padding: 10px 0;
+    }
+    #menu-toggle:checked + .hamburger + .nav-links {
+      display: flex;
+    }
+    .hamburger {
+      display: block;
+    }
+  }
+    body { font-family: Arial; padding: 20px; text-align: center; }
+    .form { max-width: 400px; margin: auto; }
+    input, button { width: 100%; padding: 12px; margin: 10px 0; }
+    nav { background: #007bff; padding: 10px; margin-bottom: 20px; }
+    nav a { color: white; margin: 0 10px; text-decoration: none; }
+
+    .image-container {
+  display: flex;
+  justify-content: center; /* Center images horizontally */
+  align-items: center;     /* Center images vertically (optional) */
+  gap: 20px;               /* Space between images */
+  padding: 20px;
+  flex-wrap: wrap;         /* Optional: wrap on small screens */
+}
+
+.image-container img {
+  width: 100px;            /* Adjust size as needed */
+  height: auto;
+}
+
+
+
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="/static/logo.png" alt="GH Schools" />
+    </div>
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="hamburger">&#9776;</label>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/payment">Payment</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<div class="image-container">
+  <img src="images/GH%20Schools.png" alt="Image 1">
+   <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+</div>
+
+  <div class="form">
+    <h2>Make a Payment</h2>
+    <input id="student_id" placeholder="Student ID">
+    <input id="name" placeholder="Full Name">
+     <input id="name" placeholder="level">
+     <input id="email" placeholder="Department">
+    <input id="email" placeholder="Email">
+    <input id="amount" type="number" placeholder="Amount (GHS)">
+    <button onclick="payWithPaystack()">Pay Now</button>
+  </div>
+
+  <script>
+    function payWithPaystack() {
+      let student_id = document.getElementById('student_id').value;
+      let name = document.getElementById('name').value;
+      let email = document.getElementById('email').value;
+      let amount = parseFloat(document.getElementById('amount').value) * 100;
+
+      if (!student_id || !name || !email || !amount) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      let handler = PaystackPop.setup({
+        key: 'pk_live_20834c6b266695a845aec74214208749f118ffd9',  // Replace with your real PUBLIC key
+        email: email,
+        amount: amount,
+        currency: "GHS",
+        ref: 'GH' + Math.floor(Math.random() * 1000000000),
+        metadata: {
+          custom_fields: [
+            { display_name: "Full Name", value: name },
+            { display_name: "Student ID", value: student_id }
+          ]
+        },
+        callback: function(response) {
+          fetch('/save_payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              student_id: student_id,
+              name: name,
+              email: email,
+              amount: amount / 100,
+              reference: response.reference,
+              status: 'success'
+            })
+          }).then(() => {
+            const date = new Date().toISOString();
+            window.location.href = `/thank_you?student_id=${student_id}&name=${name}&email=${email}&amount=${amount/100}&reference=${response.reference}&date=${date}`;
+          });
+        },
+        onClose: function() {
+          alert('Payment cancelled.');
+        }
+      });
+
+      handler.openIframe();
+    }
+  </script>
+</body>
+</html>

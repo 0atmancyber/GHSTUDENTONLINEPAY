@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #004080;
+    padding: 10px 20px;
+    color: white;
+    flex-wrap: wrap;
+  }
+  .logo img {
+    height: 40px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+  }
+  #menu-toggle {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+      display: none;
+      background: #004080;
+    }
+    .nav-links li {
+      text-align: center;
+      padding: 10px 0;
+    }
+    #menu-toggle:checked + .hamburger + .nav-links {
+      display: flex;
+    }
+    .hamburger {
+      display: block;
+    }
+  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #007bff;
+      padding: 15px;
+      position: relative;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      color: white;
+      cursor: pointer;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #007bff;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        z-index: 99;
+      }
+
+      .nav-links a {
+        padding: 12px 0;
+        border-top: 1px solid #fff;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    h2 {
+      margin: 20px 0;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+      padding: 0 15px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    .image-container img {
+      width: 100px;
+      height: auto;
+    }
+
+    @media (max-width: 600px) {
+      .image-container img {
+        width: 80px;
+      }
+
+      input, button {
+        font-size: 15px;
+      }
+    }
+  </style>
+
+  <script>
+    function toggleMenu() {
+      const navLinks = document.getElementById("navLinks");
+      navLinks.classList.toggle("show");
+    }
+  </script>
+</head>
+
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="/static/logo.png" alt="GH Schools" />
+    </div>
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="hamburger">&#9776;</label>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/payment">Payment</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+  <div class="image-container">
+    <img src="images/GH%20Schools.png" alt="Image 1">
+    <img src="images/GH%20Schools.png" alt="Image 2">
+    <img src="images/GH%20Schools.png" alt="Image 3">
+    <img src="images/GH%20Schools.png" alt="Image 4">
+    <img src="images/GH%20Schools.png" alt="Image 5">
+  </div>
+
+  <h2>Admin Login</h2>
+
+  <form method="POST" action="/admin" autocomplete="off">
+    <input type="text" name="username" placeholder="Username" required autocomplete="off">
+    <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
+    <button type="submit">Login</button>
+  </form>
+
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
+</body>
+</html>

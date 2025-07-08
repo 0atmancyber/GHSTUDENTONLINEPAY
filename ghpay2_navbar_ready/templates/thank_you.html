@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #004080;
+    padding: 10px 20px;
+    color: white;
+    flex-wrap: wrap;
+  }
+  .logo img {
+    height: 40px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+  }
+  #menu-toggle {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+      display: none;
+      background: #004080;
+    }
+    .nav-links li {
+      text-align: center;
+      padding: 10px 0;
+    }
+    #menu-toggle:checked + .hamburger + .nav-links {
+      display: flex;
+    }
+    .hamburger {
+      display: block;
+    }
+  }
+    body { font-family: Arial, sans-serif; padding: 30px; text-align: center; }
+    .receipt { border: 1px solid #ccc; padding: 20px; max-width: 600px; margin: auto; text-align: left; }
+    .receipt h3 { text-align: center; }
+    nav { background-color: #007bff; padding: 15px; margin-bottom: 20px; }
+    nav a { color: white; margin: 0 10px; text-decoration: none; }
+    button { padding: 10px 20px; margin-top: 20px; }
+
+    .image-container {
+  display: flex;
+  justify-content: center; /* Center images horizontally */
+  align-items: center;     /* Center images vertically (optional) */
+  gap: 20px;               /* Space between images */
+  padding: 20px;
+  flex-wrap: wrap;         /* Optional: wrap on small screens */
+}
+
+.image-container img {
+  width: 100px;            /* Adjust size as needed */
+  height: auto;
+}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="/static/logo.png" alt="GH Schools" />
+    </div>
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="hamburger">&#9776;</label>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/payment">Payment</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="image-container">
+  <img src="images/GH%20Schools.png" alt="Image 1">
+   <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+</div>
+
+
+<div class="image-container">
+  <img src="images/GH%20Schools.png" alt="Image 1">
+   <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+      <img src="images/GH%20Schools.png" alt="Image 1">
+</div>
+
+  <div class="receipt" id="receipt">
+    <h3>Payment Receipt</h3>
+    <p><strong>Student ID:</strong> {{ student_id }}</p>
+    <p><strong>Name:</strong> {{ request.args.get('name', 'N/A') }}</p>
+    <p><strong>Email:</strong> {{ request.args.get('email', 'N/A') }}</p>
+    <p><strong>Amount Paid:</strong> GHS {{ request.args.get('amount', 'N/A') }}</p>
+    <p><strong>Reference:</strong> {{ request.args.get('reference', 'N/A') }}</p>
+    <p><strong>Status:</strong> {{ request.args.get('status', 'success') }}</p>
+    <p><strong>Date:</strong> {{ request.args.get('date', 'N/A') }}</p>
+  </div>
+  <button onclick="window.print()">Download / Print Receipt</button>
+</body>
+</html>

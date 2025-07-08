@@ -1,0 +1,33 @@
+# GH Student Payment Portal
+
+This web app allows students to pay their school fees using Paystack. 
+Admins can also view all transactions in a secure dashboard.
+
+## Features
+- Student payment form
+- Admin login
+- View all payments in dashboard
+- Search student records
+- Printable receipt after payment
+
+## How to Run the App
+
+1. Install Python on your computer
+2. Open Terminal or Command Prompt
+3. Type:
+   pip install -r requirements.txt
+4. Create a file named `.env` and paste this into it:
+
+   ADMIN_USER=@gh_schools  
+   ADMIN_PASS=admin_gh1234  
+   SECRET_KEY=yoursecretkey  
+   PAYSTACK_SECRET_KEY=yourpaystacksecret  
+
+5. Then type:
+   python app.py
+
+6. Open your browser and go to:
+   http://localhost:5000
+
+## Contact
+Made by GH Schools IT Team.
